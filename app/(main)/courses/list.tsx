@@ -18,17 +18,19 @@ const List = ({ courses, activeCourseId }: Props) => {
 
 
     const onClick = (id: number) => {
+        console.log("What is coming in id here ", id)
         if (pending) {
             return;
         }
 
         if (id === activeCourseId) {
+            console.log("What is coming in id here")
             return router.push("/learn")
         }
 
         startTransition(() => {
-            upsertUserProgress(id)
-                .catch(() => toast.error("Something went wrong"))
+            upsertUserProgress(id).then(() => { console.log("hurrah we updated your progress") })
+                .catch(() => toast.error("hurrah we were unable to update your progress"))
         })
     }
 
